@@ -3,33 +3,10 @@
   "version": "1.0.0",
   "skills": [
     {
-      "skillId": "remotion-best-practices",
-      "file": "skill-remotion-best-practices.md",
-      "keywords": [
-        "remotion",
-        "spring",
-        "physics",
-        "damping",
-        "animation",
-        "easing",
-        "interpolate",
-        "opacity",
-        "motion",
-        "series",
-        "sequence",
-        "timing",
-        "scenes",
-        "transitions",
-        "wipe",
-        "slide",
-        "transitionseries",
-        "prompting",
-        "style",
-        "3D",
-        "svg",
-        "product showcase"
-      ],
-      "count": 6
+      "skillId": "",
+      "file": "",
+      "keywords": [],
+      "count": 
     }
   ]
 }
