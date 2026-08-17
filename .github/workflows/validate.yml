@@ -1,0 +1,62 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate skill data and references
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path.cwd()
+
+          def load_json(path):
+              with path.open(encoding="utf-8") as handle:
+                  return json.load(handle)
+
+          experience_index = load_json(root / "experience" / "_index.json")
+          load_json(root / "knowledge-base" / "_index.json")
+
+          for item in experience_index["skills"]:
+              relative_file = Path(item["file"])
+              assert not relative_file.is_absolute()
+              assert ".." not in relative_file.parts
+              content_file = root / "experience" / relative_file
+              assert content_file.is_file(), content_file
+              entry_count = len(re.findall(r"^## 🔧 ", content_file.read_text(encoding="utf-8"), re.MULTILINE))
+              assert item["count"] == entry_count, (item["skillId"], item["count"], entry_count)
+
+          skill_text = (root / "SKILL.md").read_text(encoding="utf-8")
+          assert skill_text.startswith("---\n")
+          _, frontmatter, _ = skill_text.split("---", 2)
+          assert re.search(r"^name:\s+auto-skill$", frontmatter, re.MULTILINE)
+          assert re.search(r"^description:\s+", frontmatter, re.MULTILINE)
+          assert re.search(r"^license:\s+MIT$", frontmatter, re.MULTILINE)
+          for forbidden in ("GEMINI.md", "global.mdc", "CLAUDE.md", "instructions.md"):
+              assert forbidden not in skill_text, forbidden
+
+          readme = (root / "README.md").read_text(encoding="utf-8")
+          for asset in ("assets/auto-skill-flow.webp", "assets/auto-upload-knowlege.webp"):
+              assert asset in readme
+              assert (root / asset).is_file(), asset
+
+          license_text = (root / "LICENSE").read_text(encoding="utf-8")
+          assert "MIT License" in license_text
+          assert "Copyright (c) 2026 Prompt Case" in license_text
+          print("Validation passed")
+          PY
