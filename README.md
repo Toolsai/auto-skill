@@ -1,10 +1,10 @@
 # Auto‑Skill：AI 自我進化的知識積累系統
 
-![Auto‑Skill Flow](assets/auto-skill-flow.png)
+![Auto‑Skill Flow](assets/auto-skill-flow.webp)
 
-這個技能是讓你的 AI Agent 不再是「用完即忘」的工具，而是越用越懂你的自進化「第二大腦」。
+這個技能是讓你的 AI Agent 不再是「用完即忘」的工具，而是越用越懂你的自進化「第二大腦」。所有記憶讀取與回寫都以使用者明確同意為前提。
 
-Auto‑Skill 是一個為 AI Assistant 設計的元技能（Meta‑Skill）。它作為背景運行的知識系統，能在對話過程中自動檢索過往經驗、捕捉最佳實踐，並在任務成功時主動將「成功經驗」寫入你的私人知識庫並建立索引，聰明地減少 Tokens 消耗。你只需要照常提出需求，Auto‑Skill 就會在背景自動運作。
+Auto‑Skill 是一個為 AI Assistant 設計的元技能（Meta‑Skill）。它能在對話過程中檢索過往經驗、捕捉最佳實踐，並在任務成功且使用者同意後將經驗寫入私人知識庫並建立索引。它不會自動修改 IDE 或 Agent 的全域規則。
 
 ---
 
@@ -27,7 +27,13 @@ Auto‑Skill 是一個為 AI Assistant 設計的元技能（Meta‑Skill）。�
 - **General Knowledge**：通用流程、偏好、風格
 - **Skill Experience**：特定技能的參數、錯誤解法
 
-![autoload](assets/auto-upload-knowlege.png)
+![autoload](assets/auto-upload-knowlege.webp)
+
+## 安全邊界
+
+- 不修改 IDE／Agent 全域規則檔，也不建立全域啟動協議。
+- 只寫入使用者核准的資料根目錄，不寫回已安裝的 Skill 套件目錄。
+- 回寫前應移除密鑰、私人憑證與不必要的原始對話內容。
 
 ---
 
@@ -99,6 +105,10 @@ experience/
    `npx skills add toolsai/auto-skill`
 
 開始對話，享受 AI 自進化的樂趣！
+
+## 授權
+
+本專案採用 MIT License，詳見 [LICENSE](LICENSE)。
 
 ---
 
