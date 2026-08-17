@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "skills": [
     {
-      "skillId": "",
-      "file": "",
-      "keywords": [],
-      "count": 
+      "skillId": "remotion-best-practices",
+      "file": "skill-remotion-best-practices.md",
+      "keywords": [
+        "remotion",
+        "spring",
+        "easing",
+        "sequence",
+        "transition",
+        "animation",
+        "prompting",
+        "3d",
+        "svg"
+      ],
+      "count": 6
     }
   ]
 }
